@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml/qqmlextensionplugin.h>
 
+Q_IMPORT_QML_PLUGIN(SpecificLayoutPlugin)
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +16,5 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
     return app.exec();
 }
