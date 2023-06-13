@@ -17,6 +17,9 @@ qt_add_qml_module(appBlackJack
     QML_FILES main.qml 
 )
 
+add_subdirectory(Modules/SpecificLayout)
+
+
 set_target_properties(appBlackJack PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -27,6 +30,11 @@ set_target_properties(appBlackJack PROPERTIES
 
 target_link_libraries(appBlackJack
     PRIVATE Qt6::Quick)
+target_link_libraries(appBlackJack
+    PRIVATE specific_layout_moduleplugin)
+
+set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/Modules
+    ${CMAKE_BINARY_DIR}/Modules CACHE STRING "" FORCE)
 
 install(TARGETS appBlackJack
     BUNDLE DESTINATION .
