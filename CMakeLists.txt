@@ -9,18 +9,20 @@ find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(appBlackJack
     main.cpp
-    Managers/windowsmanagers.h
-    Managers/windowsmanagers.cpp
 )
 
 qt_add_qml_module(appBlackJack
     URI BlackJack
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES
+        main.qml
+        UI/Test.qml
 )
 
-add_subdirectory(Modules/SpecificLayout)
 
+
+add_subdirectory(Layout)
+add_subdirectory(WindowsManager)
 
 set_target_properties(appBlackJack PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -30,13 +32,18 @@ set_target_properties(appBlackJack PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+#list (APPEND QML_DIRS "Layout")
+list (APPEND QML_DIRS "WindowsManager")
+
+set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/WindowsManager
+    ${CMAKE_BINARY_DIR}/WindowsManager CACHE STRING "" FORCE)
+
 target_link_libraries(appBlackJack
     PRIVATE Qt6::Quick)
 target_link_libraries(appBlackJack
     PRIVATE specific_layout_moduleplugin)
-
-set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/Modules
-    ${CMAKE_BINARY_DIR}/Modules CACHE STRING "" FORCE)
+target_link_libraries(appBlackJack
+    PRIVATE windows_managerplugin)
 
 install(TARGETS appBlackJack
     BUNDLE DESTINATION .
