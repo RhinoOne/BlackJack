@@ -16,7 +16,7 @@ qt_add_qml_module(appBlackJack
     VERSION 1.0
     QML_FILES
         main.qml
-        UI/Test.qml
+
 )
 
 

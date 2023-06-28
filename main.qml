@@ -1,50 +1,38 @@
 import QtQuick 2.6
 import Layout 1.0
 import QtQuick.Layouts
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.3
 import WindowsManager 1.0
 
-Window
+ApplicationWindow
 {
-    height: 200
-    width: 200
+    height: 500
+    width: 720
+    title: qsTr("Black Jack")
     visible: true
 
-    GridLayoutUtil
+    Item
     {
+        anchors.fill: parent
 
-        column: 2
-        row:2
-
-        Item
+        GridLayoutUtil
         {
-            Layout.column: 1
-            Layout.row: 0
-
-            Button
-            {
-                height: 100
-                width: 100
-                text: "test"
-                onClicked: {
-
-                    WindowsManager.changeDisplayed("BlackJack/UI/Test.qml");
-                    WindowsManager.setupPropertyWindow(450, 450, "Test");
-                }
-            }
-
+            column: 1
+            row: 5
         }
 
-        Item
+        GridLayoutUtil
         {
-            Layout.column: 1
-            Layout.row: 1
-            Text
-            {
-               text: WindowsManager.url
-            }
+            column: 3
+            row: 2
         }
 
+
+        GridLayoutUtil
+        {
+            column: 1
+            row: 3
+        }
     }
 }
 

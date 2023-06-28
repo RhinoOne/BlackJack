@@ -14,8 +14,6 @@ class WindowsManager : public QObject
     QML_SINGLETON
     Q_PROPERTY(QString url READ GetUrl WRITE SetUrl NOTIFY urlChanged)
 
-
-
 signals:
     void urlChanged();
 
