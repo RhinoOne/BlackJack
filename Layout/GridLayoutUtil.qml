@@ -7,7 +7,7 @@ Item
 
     property int column: 1
     property int row: 1
-
+    property string color: "#00000000"
 
     onChildrenChanged: updatePreferredSizes()
     onWidthChanged: updatePreferredSizes()
@@ -46,5 +46,8 @@ Item
         }
     }
 
-
+    Rectangle
+    {
+        color: layoutGrid.color
+    }
 }
