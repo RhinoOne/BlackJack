@@ -6,32 +6,62 @@ import WindowsManager 1.0
 
 ApplicationWindow
 {
-    height: 500
-    width: 720
+    height: 720
+    width: 1280
     title: qsTr("Black Jack")
     visible: true
 
-    Item
+    GridLayoutUtil
     {
         anchors.fill: parent
+        column: 3
 
         GridLayoutUtil
         {
-            column: 1
-            row: 5
-        }
-
-        GridLayoutUtil
-        {
+            row:10
             column: 3
-            row: 2
-        }
+            Layout.column: 0
+            Layout.row: 0
+            Layout.rowSpan: 10
+            color : "#204b0082"
 
+            GridLayoutUtil
+            {
+                row: 10
+                column: 3
 
-        GridLayoutUtil
-        {
-            column: 1
-            row: 3
+                RowLayout
+                {
+                    Layout.column: 1
+                    Layout.row: 0
+                    Button
+                    {
+                        Layout.minimumHeight: 50
+                        Layout.minimumWidth: 50
+                        text:qsTr("Test\n Test")
+                    }
+                }
+
+                RowLayout
+                {
+                    Layout.column: 1
+                    Layout.row: 1
+                    Button
+                    {
+                        text:qsTr("Test\n Test")
+                    }
+                }
+
+                RowLayout
+                {
+                    Layout.column: 1
+                    Layout.row: 2
+                    Button
+                    {
+                        text:qsTr("Test\n Test")
+                    }
+                }
+            }
         }
     }
 }
