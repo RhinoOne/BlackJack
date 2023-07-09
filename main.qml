@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls 2.3
 import WindowsManager 1.0
 
+
 ApplicationWindow
 {
     height: 720
@@ -14,52 +15,45 @@ ApplicationWindow
     GridLayoutUtil
     {
         anchors.fill: parent
-        column: 3
+        column: 20
+        row:2
 
-        GridLayoutUtil
+        Item
         {
-            row:10
-            column: 3
+            id: container_left_menu
             Layout.column: 0
             Layout.row: 0
-            Layout.rowSpan: 10
-            color : "#204b0082"
+            Layout.rowSpan: 2
 
             GridLayoutUtil
             {
-                row: 10
+                id: layout_left_menu
+                anchors.fill: container_left_menu
+                Layout.margins: 20
+                row:12
                 column: 3
+                color : "#204b0082"
 
-                RowLayout
+                Item
                 {
-                    Layout.column: 1
-                    Layout.row: 0
-                    Button
-                    {
-                        Layout.minimumHeight: 50
-                        Layout.minimumWidth: 50
-                        text:qsTr("Test\n Test")
-                    }
-                }
-
-                RowLayout
-                {
-                    Layout.column: 1
+                    Layout.column: 0
+                    Layout.columnSpan: 3
                     Layout.row: 1
-                    Button
+
+                    Rectangle
                     {
-                        text:qsTr("Test\n Test")
+                        anchors.fill: parent
+                        anchors.margins: 20
+                        color: "blue"
                     }
                 }
 
-                RowLayout
+
+                Text
                 {
-                    Layout.column: 1
+                    Layout.column: 0
+                    Layout.columnSpan: 3
                     Layout.row: 2
-                    Button
-                    {
-                        text:qsTr("Test\n Test")
-                    }
                 }
             }
         }

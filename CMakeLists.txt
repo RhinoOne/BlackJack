@@ -32,7 +32,6 @@ set_target_properties(appBlackJack PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-#list (APPEND QML_DIRS "Layout")
 list (APPEND QML_DIRS "WindowsManager")
 
 set(QML_IMPORT_PATH ${CMAKE_SOURCE_DIR}/WindowsManager

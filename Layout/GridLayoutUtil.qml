@@ -24,30 +24,31 @@ Item
 
         if( lenghtGhildrenLayout === 0 || lenghtGhildrenLayout === undefined )
         {
-          return;
+            return;
         }
 
         for(var keyWhile = 0; keyWhile !== lenghtGhildrenLayout; keyWhile++)
         {
-          var obj = layoutGrid.children[keyWhile]
-          if(obj !== undefined)
-          {
-              var tempColumnValue = obj.Layout.column
-              var tempRowValue = obj.Layout.row
-              var tempColumnSpan = obj.Layout.columnSpan
-              var tempRowSpan = obj.Layout.rowSpan
+            var obj = layoutGrid.children[keyWhile]
 
-              obj.x = tempColumnValue * cellWidth
-              obj.y = tempRowValue * cellHeight
-              obj.height = tempRowSpan * cellHeight
-              obj.width = tempColumnSpan * cellWidth
-          }
+            if(obj !== undefined)
+                {
+                var tempColumnValue = obj.Layout.column
+                var tempRowValue = obj.Layout.row
+                var tempColumnSpan = obj.Layout.columnSpan
+                var tempRowSpan = obj.Layout.rowSpan
 
+                obj.x = tempColumnValue * cellWidth
+                obj.y = tempRowValue * cellHeight
+                obj.height = tempRowSpan * cellHeight
+                obj.width = tempColumnSpan * cellWidth
+            }
         }
     }
 
     Rectangle
     {
+        anchors.fill: parent
         color: layoutGrid.color
     }
 }
