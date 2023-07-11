@@ -14,8 +14,11 @@ qt_add_executable(appBlackJack
 qt_add_qml_module(appBlackJack
     URI BlackJack
     VERSION 1.0
+    SOURCES
+        MainWindow/mainwindow.h
+        MainWindow/mainwindow.cpp
     QML_FILES
-        main.qml
+        MainWindow/main.qml
 
 )
 

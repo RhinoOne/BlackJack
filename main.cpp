@@ -3,6 +3,7 @@
 #include <QtQml/qqmlextensionplugin.h>
 #include <QQuickView>
 #include <WindowsManager/windowsmanager.h>
+#include <MainWindow/mainwindow.h>
 #include <QQmlContext>
 
 Q_IMPORT_QML_PLUGIN(LayoutPlugin)
@@ -13,7 +14,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/BlackJack/main.qml"_qs);
+    const QUrl url(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
