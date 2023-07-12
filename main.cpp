@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
     const QUrl url(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -21,7 +22,9 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-    engine.load(url);
     WindowsManager::CreateViewInstance();
+    WindowsManager::changeDisplayed(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
+    WindowsManager::setupPropertyWindow(QRect(0,0,1280, 720), "BlackJack");
+
     return app.exec();
 }

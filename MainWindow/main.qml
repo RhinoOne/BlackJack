@@ -5,12 +5,9 @@ import QtQuick.Controls 2.3
 import WindowsManager 1.0
 
 
-ApplicationWindow
+Item
 {
-    height: 720
-    width: 1280
-    title: qsTr("Black Jack")
-    visible: true
+    anchors.fill: parent
 
     GridLayoutUtil
     {

@@ -1,9 +1,11 @@
 #ifndef WINDOWSMANAGER_H
 #define WINDOWSMANAGER_H
+
 #include <QObject>
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #include <QSharedPointer>
+#include <QGuiApplication>
 
 typedef QSharedPointer<QQuickView> SPView;
 
@@ -18,25 +20,26 @@ signals:
     void urlChanged();
 
 public:
-    Q_INVOKABLE bool changeDisplayed(const QString& url);
-    Q_INVOKABLE void setupPropertyWindow(const int height, const int width, const QString& title) const;
+    Q_INVOKABLE static bool changeDisplayed(const QString& url);
+    Q_INVOKABLE static void setupPropertyWindow(QRect rect, const QString& title);
 
 public:
 
     WindowsManager();
     static bool IsValid();
     static void CreateViewInstance();
+    static SPView GetViewInstance();
+
 
     QString GetUrl(){return m_url;}
     void SetUrl(const QString& str);
 
     ~WindowsManager()= default;
+
 private:
 
-    QString m_url;
+    static QString m_url;
     static SPView m_window;
 };
-
-
 
 #endif // WINDOWSMANAGERS_H

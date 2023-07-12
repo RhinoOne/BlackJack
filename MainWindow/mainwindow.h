@@ -5,26 +5,19 @@
 #include <QQmlInfo>
 #include <QMetaMethod>
 #include <QMap>
+#include "../WindowsManager/windowsmanager.h"
+#include <QQuickItem>
 
 class MainWindow : public QObject
 {
     Q_OBJECT
-
 public:
 
-    MainWindow()
-    {
+    MainWindow() = default;
+    QMap<QObject*, QMetaMethod> GetObjectsMap(){return objectsMap;};
 
-    }
-
-    void TestFunc() {qDebug() << "sdasd";}
-
-    void ToggleSidebarItems(QMetaMethod & kilor)
-    {
-        qDebug() << "ToggleSidebarItems";
-    }
 private:
-    QMap<QObject*, QMetaMethod&> sds;
+    QMap<QObject*, QMetaMethod> objectsMap;
 };
 
 #endif // MAINWINDOW_H

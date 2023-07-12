@@ -26,6 +26,7 @@ qt_add_qml_module(appBlackJack
 
 add_subdirectory(Layout)
 add_subdirectory(WindowsManager)
+add_subdirectory(ConnectionManager)
 
 set_target_properties(appBlackJack PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
