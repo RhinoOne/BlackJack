@@ -13,7 +13,7 @@ class MainWindow : public QObject
     Q_OBJECT
 public:
 
-    MainWindow() = default;
+    MainWindow();
     QMap<QObject*, QMetaMethod> GetObjectsMap(){return objectsMap;};
 
 private:

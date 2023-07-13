@@ -17,6 +17,8 @@ qt_add_qml_module(appBlackJack
     SOURCES
         MainWindow/mainwindow.h
         MainWindow/mainwindow.cpp
+        GloabalData/data.h
+        GloabalData/data.cpp
     QML_FILES
         MainWindow/main.qml
 

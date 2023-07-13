@@ -6,6 +6,7 @@
 #include <QQmlApplicationEngine>
 #include <QSharedPointer>
 #include <QGuiApplication>
+#include "../GloabalData/data.h"
 
 typedef QSharedPointer<QQuickView> SPView;
 
@@ -20,7 +21,7 @@ signals:
     void urlChanged();
 
 public:
-    Q_INVOKABLE static bool changeDisplayed(const QString& url);
+    Q_INVOKABLE static bool changeDisplayed(TypeWindow type);
     Q_INVOKABLE static void setupPropertyWindow(QRect rect, const QString& title);
 
 public:
@@ -29,7 +30,8 @@ public:
     static bool IsValid();
     static void CreateViewInstance();
     static SPView GetViewInstance();
-
+    static void CreateUrlList();
+    static void CreateViewersList();
 
     QString GetUrl(){return m_url;}
     void SetUrl(const QString& str);
@@ -40,6 +42,9 @@ private:
 
     static QString m_url;
     static SPView m_window;
+    static QVector<SPView> m_viewers;
+    static QVector<QUrl> m_urlViewers;
+
 };
 
 #endif // WINDOWSMANAGERS_H

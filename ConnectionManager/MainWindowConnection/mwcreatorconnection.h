@@ -9,9 +9,8 @@ class MWCreatorConnection : public IConnection
 {
 
 public:
-    MWCreatorConnection(MainWindow& main);
-
-   void SetButtonConnection() override;
+    MWCreatorConnection() =  default;
+    void Main();
 
 private:
    QSharedPointer<MainWindow> mainWindowPtr;

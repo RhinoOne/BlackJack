@@ -6,7 +6,6 @@ class IConnection
 {
 public:
     IConnection() = default;
-    virtual void SetButtonConnection() = 0;
     virtual ~IConnection();
 };
 

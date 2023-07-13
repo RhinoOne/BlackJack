@@ -23,8 +23,9 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     WindowsManager::CreateViewInstance();
-    WindowsManager::changeDisplayed(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
+    WindowsManager::CreateUrlList();
+    WindowsManager::CreateViewersList();
+    WindowsManager::changeDisplayed(TypeWindow::MainWindow);
     WindowsManager::setupPropertyWindow(QRect(0,0,1280, 720), "BlackJack");
-
     return app.exec();
 }
