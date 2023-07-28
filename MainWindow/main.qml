@@ -4,10 +4,14 @@ import QtQuick.Layouts
 import QtQuick.Controls 2.3
 import WindowsManager 1.0
 
-
 Item
 {
     anchors.fill: parent
+
+    Component.onCompleted:
+    {
+        WindowsManager.changeDisplayed(WindowsManager.MainWindow)
+    }
 
     GridLayoutUtil
     {
@@ -40,6 +44,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnSweep")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Sweep")
@@ -54,6 +59,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnIcon")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Icon")
@@ -69,6 +75,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnMode1")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 1")
@@ -84,6 +91,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnMode2")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 2")
@@ -98,6 +106,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnSetting")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Setting")
@@ -133,6 +142,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnSweepH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Sweep Hidden")
@@ -147,6 +157,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnIconH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Icon Hidden")
@@ -162,6 +173,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnMode1H")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 1 Hidden")
@@ -177,6 +189,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnMode2H")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 2 Hidden")
@@ -191,6 +204,7 @@ Item
 
                     Button
                     {
+                        objectName: qsTr("btnSettingH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Setting")

@@ -2,11 +2,13 @@
 #include <QQmlApplicationEngine>
 #include <QtQml/qqmlextensionplugin.h>
 #include <QQuickView>
-#include <WindowsManager/windowsmanager.h>
-#include <MainWindow/mainwindow.h>
 #include <QQmlContext>
 
+#include "WindowsManager/windowsmanager.h"
+
+
 Q_IMPORT_QML_PLUGIN(LayoutPlugin)
+Q_IMPORT_QML_PLUGIN(ConnectionManagerPlugin)
 Q_IMPORT_QML_PLUGIN(WindowsManagerPlugin)
 
 int main(int argc, char *argv[])
@@ -25,7 +27,9 @@ int main(int argc, char *argv[])
     WindowsManager::CreateViewInstance();
     WindowsManager::CreateUrlList();
     WindowsManager::CreateViewersList();
-    WindowsManager::changeDisplayed(TypeWindow::MainWindow);
-    WindowsManager::setupPropertyWindow(QRect(0,0,1280, 720), "BlackJack");
+
+    WindowsManager::createCurrentWindowType(WindowsManager::MainWindow);
+    WindowsManager::setupPropertyWindow(QRect(0,0,1280,720 ), QString("BlackJack"), WindowsManager::MainWindow);
+
     return app.exec();
 }

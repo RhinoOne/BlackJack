@@ -1,31 +1,15 @@
 #include "windowsmanager.h"
+#include <QGuiApplication>
+
 
 SPView WindowsManager::m_window = nullptr;
 QString WindowsManager::m_url = "";
-QVector<SPView> WindowsManager::m_viewers = QVector<SPView>();
-QVector<QUrl> WindowsManager::m_urlViewers =  QVector<QUrl>();
+QMap<WindowsManager::TypeWindow, SPView> WindowsManager::m_viewers = QMap<WindowsManager::TypeWindow, SPView>();
+QMap<WindowsManager::TypeWindow, QUrl> WindowsManager::m_urlViewers =  QMap<WindowsManager::TypeWindow, QUrl>();
 
 WindowsManager::WindowsManager()
 {
 
-}
-bool WindowsManager::changeDisplayed(TypeWindow type)
-{
-    if(type != TypeWindow::None)
-    {
-        m_window = m_viewers[(int)type];
-        return true;
-    }
-    return false;
-}
-
-void WindowsManager::setupPropertyWindow(QRect rect, const QString &title)
-{
-    m_window->setTitle(title);
-    QRect rectDesktop = QGuiApplication::primaryScreen()->geometry();
-    rect.moveCenter(QPoint(rectDesktop.width()/2, rectDesktop.height()/2));
-    m_window->setGeometry(rect);
-    m_window->show();
 }
 
 bool WindowsManager::IsValid()
@@ -33,10 +17,9 @@ bool WindowsManager::IsValid()
     return m_window.isNull();
 }
 
-void WindowsManager::SetUrl(const QString &str)
+SPView WindowsManager::GetViewInstance()
 {
-    m_url =str;
-    emit urlChanged();
+    return m_window;
 }
 
 void WindowsManager::CreateViewInstance()
@@ -45,29 +28,57 @@ void WindowsManager::CreateViewInstance()
         m_window = QSharedPointer<QQuickView>(new QQuickView);
 }
 
-SPView WindowsManager::GetViewInstance()
-{
-    return m_window;
-}
-
 void WindowsManager::CreateUrlList()
 {
-    m_urlViewers.push_back(QUrl(u"qrc:/BlackJack/MainWindow/main.qml"_qs));
-    m_urlViewers.push_back(QUrl(u"qrc:/BlackJack/MainWindow/test.qml"_qs));
+    m_urlViewers.insert(WindowsManager::MainWindow, QUrl(u"qrc:/BlackJack/MainWindow/main.qml"_qs));
 }
 
 void WindowsManager::CreateViewersList()
 {
-   const int countUrlWindowsApp =  m_urlViewers.size();
-   if(!(countUrlWindowsApp <= 0))
+   if(!(m_urlViewers.empty()))
    {
-        for(int key = 0; key != countUrlWindowsApp; key ++)
+        auto bIterUlrViewers = m_urlViewers.cbegin();
+        auto eIterUrlViewers = m_urlViewers.cend();
+
+        for(; bIterUlrViewers != eIterUrlViewers; bIterUlrViewers++)
         {
-            QUrl tempCurrentUrlWindow = m_urlViewers[key];
-            SPView tempCurrentViewWindow = SPView(new QQuickView);
-            tempCurrentViewWindow->setSource(tempCurrentUrlWindow);
-            m_viewers.push_back(SPView(tempCurrentViewWindow));
-            tempCurrentViewWindow.clear();
+            m_viewers.insert(bIterUlrViewers.key(),SPView(new QQuickView));
         }
    }
+}
+
+//Integration methods with QML
+void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, WindowsManager::TypeWindow typeWindow)
+{
+    auto viewerIter = m_viewers.find(typeWindow);
+
+    assert(*viewerIter);
+    viewerIter.value()->setTitle(title);
+
+    QRect rectDesktop = QGuiApplication::primaryScreen()->geometry();
+    rect.moveCenter(QPoint(rectDesktop.width()/2, rectDesktop.height()/2));
+
+    viewerIter.value()->setGeometry(rect);
+}
+
+void WindowsManager::changeDisplayed(TypeWindow type)
+{
+
+    if(type != TypeWindow::None)
+    {
+        m_window = *m_viewers.find(type);
+        m_window->show();
+        assert(m_window);
+    }
+    assert(true);
+}
+
+void WindowsManager::createCurrentWindowType(TypeWindow type)
+{
+    if(type != WindowsManager::None)
+    {
+        const QUrl url = *m_urlViewers.find(type);
+        m_viewers.find(type).value()->setSource(url);
+    }
+    assert(true);
 }
