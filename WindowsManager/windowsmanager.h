@@ -1,8 +1,10 @@
 #ifndef WINDOWSMANAGER_H
 #define WINDOWSMANAGER_H
+
 #include <QObject>
-#include <QQuickView>
+#include <QtQuick/QQuickView>
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QSharedPointer>
 
 typedef QSharedPointer<QQuickView> SPView;
@@ -12,31 +14,41 @@ class WindowsManager : public QObject
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    Q_PROPERTY(QString url READ GetUrl WRITE SetUrl NOTIFY urlChanged)
-
-signals:
-    void urlChanged();
 
 public:
-    Q_INVOKABLE bool changeDisplayed(const QString& url);
-    Q_INVOKABLE void setupPropertyWindow(const int height, const int width, const QString& title) const;
+
+    enum TypeWindow
+    {
+        None,
+        MainWindow,
+        SettingWindow,
+        TestWindow,
+    };
+
+    Q_ENUM(TypeWindow)
+
+    Q_INVOKABLE static void setupPropertyWindow(QRect rect, const QString& title, WindowsManager::TypeWindow typeWindow);
+    Q_INVOKABLE static void changeDisplayed(WindowsManager::TypeWindow type);
+    Q_INVOKABLE static void createCurrentWindowType(WindowsManager::TypeWindow type);
 
 public:
 
     WindowsManager();
     static bool IsValid();
-    static void CreateViewInstance();
+    static SPView GetViewInstance();
 
-    QString GetUrl(){return m_url;}
-    void SetUrl(const QString& str);
+    static void CreateViewInstance();
+    static void CreateUrlList();
+    static void CreateViewersList();
 
     ~WindowsManager()= default;
+
 private:
 
-    QString m_url;
+    static QString m_url;
     static SPView m_window;
+    static QMap<WindowsManager::TypeWindow, SPView> m_viewers;
+    static QMap<WindowsManager::TypeWindow, QUrl> m_urlViewers;
 };
-
-
 
 #endif // WINDOWSMANAGERS_H

@@ -3,14 +3,24 @@ import Layout 1.0
 import QtQuick.Layouts
 import QtQuick.Controls 2.3
 import WindowsManager 1.0
+import ConnectionManager 1.0
 
-
-ApplicationWindow
+Item
 {
-    height: 720
-    width: 1280
-    title: qsTr("Black Jack")
-    visible: true
+    anchors.fill: parent
+
+    ConnectionManager
+    {
+        id: connManager
+    }
+
+    Component.onCompleted:
+    {
+        Qt.callLater(WindowsManager.setupPropertyWindow,Qt.rect(0,0,1280,720), qsTr("BlackJack"), WindowsManager.MainWindow)
+        Qt.callLater(connManager.makeConnection, WindowsManager.MainWindow)
+
+        WindowsManager.changeDisplayed(WindowsManager.MainWindow)
+    }
 
     GridLayoutUtil
     {
@@ -43,6 +53,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnSweep")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Sweep")
@@ -57,6 +68,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnIcon")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Icon")
@@ -72,6 +84,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnMode1")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 1")
@@ -87,6 +100,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnMode2")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 2")
@@ -101,6 +115,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnSetting")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Setting")
@@ -136,6 +151,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnSweepH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Sweep Hidden")
@@ -150,6 +166,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnIconH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Icon Hidden")
@@ -165,6 +182,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnMode1H")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 1 Hidden")
@@ -180,6 +198,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnMode2H")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Mode 2 Hidden")
@@ -194,6 +213,7 @@ ApplicationWindow
 
                     Button
                     {
+                        objectName: qsTr("btnSettingH")
                         anchors.fill: parent
                         anchors.margins: 5
                         text: qsTr("Setting")
@@ -202,7 +222,6 @@ ApplicationWindow
             }
 
         }
-
     }
 }
 
