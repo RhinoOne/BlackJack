@@ -14,7 +14,6 @@ Q_IMPORT_QML_PLUGIN(WindowsManagerPlugin)
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
 
     const QUrl url(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
@@ -29,7 +28,6 @@ int main(int argc, char *argv[])
     WindowsManager::CreateViewersList();
 
     WindowsManager::createCurrentWindowType(WindowsManager::MainWindow);
-    WindowsManager::setupPropertyWindow(QRect(0,0,1280,720 ), QString("BlackJack"), WindowsManager::MainWindow);
 
     return app.exec();
 }

@@ -5,7 +5,6 @@
 #include <QQmlInfo>
 #include <QMetaMethod>
 #include <QMap>
-#include "../WindowsManager/windowsmanager.h"
 #include <QQuickItem>
 
 class MainWindow : public QObject
@@ -14,10 +13,9 @@ class MainWindow : public QObject
 public:
 
     MainWindow();
-    QMap<QObject*, QMetaMethod> GetObjectsMap(){return objectsMap;};
 
 private:
-    QMap<QObject*, QMetaMethod> objectsMap;
+    QMap<QObject*, QMetaMethod> m_objectsMap;
 };
 
 #endif // MAINWINDOW_H

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtQuick/QQuickView>
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QSharedPointer>
 
 typedef QSharedPointer<QQuickView> SPView;
@@ -48,7 +49,6 @@ private:
     static SPView m_window;
     static QMap<WindowsManager::TypeWindow, SPView> m_viewers;
     static QMap<WindowsManager::TypeWindow, QUrl> m_urlViewers;
-
 };
 
 #endif // WINDOWSMANAGERS_H

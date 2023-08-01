@@ -25,7 +25,10 @@ SPView WindowsManager::GetViewInstance()
 void WindowsManager::CreateViewInstance()
 {
     if(IsValid())
+    {
+
         m_window = QSharedPointer<QQuickView>(new QQuickView);
+    }
 }
 
 void WindowsManager::CreateUrlList()
@@ -54,7 +57,6 @@ void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, Windo
 
     assert(*viewerIter);
     viewerIter.value()->setTitle(title);
-
     QRect rectDesktop = QGuiApplication::primaryScreen()->geometry();
     rect.moveCenter(QPoint(rectDesktop.width()/2, rectDesktop.height()/2));
 

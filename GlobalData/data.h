@@ -10,9 +10,9 @@
 
 struct ConnectionModelData
 {
-    QQuickItem* Obejct;
-    QVector<QMetaMethod> Signals;
-    QVector<QMetaMethod> Slots;
+    QQuickItem* Object;
+    QVector<const char*> Signals;
+    QVector<const char*> Slots;
 };
 
 #endif // DATA_H
