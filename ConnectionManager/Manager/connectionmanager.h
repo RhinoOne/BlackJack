@@ -18,6 +18,8 @@ class ConnectionManager : public QObject
 public:
 
     ConnectionManager();
+    ~ConnectionManager();
+
     Q_INVOKABLE void makeConnection(WindowsManager::TypeWindow type);
 
 private:

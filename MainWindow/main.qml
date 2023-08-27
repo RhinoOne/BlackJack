@@ -5,9 +5,9 @@ import QtQuick.Controls 2.3
 import WindowsManager 1.0
 import ConnectionManager 1.0
 
-Item
+ApplicationWindow
 {
-    anchors.fill: parent
+    visible: true
 
     ConnectionManager
     {
@@ -18,8 +18,6 @@ Item
     {
         Qt.callLater(WindowsManager.setupPropertyWindow,Qt.rect(0,0,1280,720), qsTr("BlackJack"), WindowsManager.MainWindow)
         Qt.callLater(connManager.makeConnection, WindowsManager.MainWindow)
-
-        WindowsManager.changeDisplayed(WindowsManager.MainWindow)
     }
 
     GridLayoutUtil
