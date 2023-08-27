@@ -10,8 +10,7 @@ class IConnection
 public:
     IConnection();
 //    Basic methods that give general information about the current window for subsequent work with a Signals/Slots connection
-    virtual QQuickItem* GetRootObject() = 0;
-    virtual QMap<QString, QQuickItem*> GetUIObject(const QRegularExpression& filter,const QQuickItem* rootObject) = 0;
+    virtual QMap<QString, QQuickItem*> GetUIObject(const QRegularExpression& filter) = 0;
 
     //Basic Methods for сonnecting all Signals/Slots
     virtual void InitializeButtonConnectionModel() = 0;

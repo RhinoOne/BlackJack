@@ -6,19 +6,10 @@ MWCreatorConnection::MWCreatorConnection()
 
 }
 
-QQuickItem *MWCreatorConnection::GetRootObject()
+QMap<QString, QQuickItem*> MWCreatorConnection::GetUIObject(const QRegularExpression &filter)
 {
-    QSharedPointer<QQuickView> tempViewWindow = WindowsManager::GetViewInstance();
-    if(!tempViewWindow.isNull())
-        return tempViewWindow->rootObject();
-
-    return nullptr;
-}
-
-QMap<QString, QQuickItem*> MWCreatorConnection::GetUIObject(const QRegularExpression &filter,const QQuickItem* rootObject)
-{
-    assert(rootObject);
-    QVector<QQuickItem*> UIItems = rootObject->findChildren<QQuickItem*>(filter, Qt::FindChildrenRecursively);
+    const QQuickView* rootWindowObject = WindowsManager::GetViewInstance().data();
+    QVector<QQuickItem*> UIItems = rootWindowObject->findChildren<QQuickItem*>(filter, Qt::FindChildrenRecursively);
 
     const int countUIObjects = UIItems.size();
     QMap<QString, QQuickItem*> UIObjects;
@@ -35,9 +26,8 @@ QMap<QString, QQuickItem*> MWCreatorConnection::GetUIObject(const QRegularExpres
 void MWCreatorConnection::InitializeButtonConnectionModel()
 {
     const QRegularExpression reg ("btn");
-    const QQuickItem* rootWindowObject = GetRootObject();
 
-    QMap<QString, QQuickItem*> btnObjects = GetUIObject(reg, rootWindowObject);
+    QMap<QString, QQuickItem*> btnObjects = GetUIObject(reg);
 
     m_main_cmd.push_back(ConnectionModelData{*btnObjects.find("btnSweep"),
                          QVector<const char*>{SIGNAL(clicked()), SIGNAL(toggled())},

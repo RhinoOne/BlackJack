@@ -21,3 +21,7 @@ void ConnectionManager::makeConnection(WindowsManager::TypeWindow type)
     }
 }
 
+ConnectionManager::~ConnectionManager()
+{
+    qDebug("sa");
+}

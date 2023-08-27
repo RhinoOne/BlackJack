@@ -11,8 +11,7 @@ class MWCreatorConnection : public QObject,
 {
     Q_OBJECT
 
-    QQuickItem* GetRootObject() override;
-    QMap<QString, QQuickItem*> GetUIObject(const QRegularExpression& filter,const QQuickItem* rootObject) override;
+    QMap<QString, QQuickItem*> GetUIObject(const QRegularExpression& filter) override;
 
     void InitializeButtonConnectionModel() override;
     void CreateConnection() override;

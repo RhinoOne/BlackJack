@@ -14,20 +14,11 @@ Q_IMPORT_QML_PLUGIN(WindowsManagerPlugin)
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
 
-    const QUrl url(u"qrc:/BlackJack/MainWindow/main.qml"_qs);
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    QQmlEngine qmlEngine;
+    QJSEngine jsEngine;
 
-    WindowsManager::CreateViewInstance();
-    WindowsManager::CreateUrlList();
-    WindowsManager::CreateViewersList();
-
-    WindowsManager::createCurrentWindowType(WindowsManager::MainWindow);
+    WindowsManager::create(&qmlEngine, &jsEngine)->createCurrentWindowType(WindowsManager::MainWindow, &app);
 
     return app.exec();
 }
