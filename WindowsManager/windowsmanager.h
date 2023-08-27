@@ -29,7 +29,7 @@ public:
 
 public:
     Q_INVOKABLE void setupPropertyWindow(QRect rect, const QString& title, WindowsManager::TypeWindow typeWindow);
-    Q_INVOKABLE void createCurrentWindowType(WindowsManager::TypeWindow type, QGuiApplication* app);
+    Q_INVOKABLE void createCurrentWindowType(WindowsManager::TypeWindow type);
 
     static WindowsManager *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
     static SPView GetViewInstance();

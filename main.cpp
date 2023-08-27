@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QQmlEngine qmlEngine;
     QJSEngine jsEngine;
 
-    WindowsManager::create(&qmlEngine, &jsEngine)->createCurrentWindowType(WindowsManager::MainWindow, &app);
+    WindowsManager::create(&qmlEngine, &jsEngine)->createCurrentWindowType(WindowsManager::MainWindow);
 
     return app.exec();
 }

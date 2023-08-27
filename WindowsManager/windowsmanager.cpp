@@ -63,7 +63,7 @@ void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, Windo
     m_window->setGeometry(rect);
 }
 
-void WindowsManager::createCurrentWindowType(TypeWindow type, QGuiApplication* app)
+void WindowsManager::createCurrentWindowType(TypeWindow type)
 {
     if(type != WindowsManager::None)
     {
