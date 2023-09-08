@@ -126,11 +126,39 @@ ApplicationWindow
         // Hidden content for left menu container
         Item
         {
+            visible: false
+            state: qsTr("Hidden")
+            objectName: qsTr("leftSidePanel")
+
             id: container_left_menu_hidden
             Layout.column: 1
             Layout.columnSpan: 3
             Layout.row: 0
             Layout.rowSpan: 2
+
+            //Animation for side left panel
+            states:
+            [
+                State
+                {
+                    name: qsTr("Hidden")
+                    PropertyChanges
+                    {
+                        target:container_left_menu_hidden
+                        visible: false
+                    }
+                },
+
+                State
+                {
+                    name: qsTr("Show")
+                    PropertyChanges
+                    {
+                        target:container_left_menu_hidden
+                        visible: true
+                    }
+                }
+            ]
 
             GridLayoutUtil
             {
