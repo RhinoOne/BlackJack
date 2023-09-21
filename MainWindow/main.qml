@@ -41,7 +41,7 @@ ApplicationWindow
                 Layout.margins: 20
                 row:12
                 column: 3
-                color : "#204b0082"
+                color : qsTr("#204b0082")
 
                 Item
                 {
@@ -126,12 +126,12 @@ ApplicationWindow
         // Hidden content for left menu container
         Item
         {
-            visible: false
-            state: qsTr("Hidden")
             objectName: qsTr("leftSidePanel")
-
             id: container_left_menu_hidden
-            Layout.column: 1
+
+            state: qsTr("Hidden")
+
+            Layout.column: 0 //Sets the initial position of the panel for the motion effect
             Layout.columnSpan: 3
             Layout.row: 0
             Layout.rowSpan: 2
@@ -144,8 +144,10 @@ ApplicationWindow
                     name: qsTr("Hidden")
                     PropertyChanges
                     {
-                        target:container_left_menu_hidden
+                        target: container_left_menu_hidden
                         visible: false
+                        opacity: 0
+                        x: 0
                     }
                 },
 
@@ -154,8 +156,86 @@ ApplicationWindow
                     name: qsTr("Show")
                     PropertyChanges
                     {
-                        target:container_left_menu_hidden
+                        target: container_left_menu_hidden
                         visible: true
+                        opacity: 1
+                        x: 64
+                    }
+                }
+            ]
+
+            transitions:
+            [
+                Transition
+                {
+                    from: qsTr("Hidden")
+                    to: qsTr("Show")
+
+                    SequentialAnimation
+                    {
+
+                        PropertyAnimation
+                        {
+                            target: container_left_menu_hidden
+                            properties: qsTr("visible")
+                            duration: 100
+                            easing.type: Easing.InQuad
+                        }
+
+                        ParallelAnimation
+                        {
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("x")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
+
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("opacity")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
+                        }
+                    }
+                },
+
+                Transition
+                {
+                    from: qsTr("Show")
+                    to: qsTr("Hidden")
+
+                    SequentialAnimation
+                    {
+                        ParallelAnimation
+                        {
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("x")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
+
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("opacity")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
+                        }
+
+                        PropertyAnimation
+                        {
+                            target: container_left_menu_hidden
+                            properties: qsTr("visible")
+                            duration: 100
+                            easing.type: Easing.InQuad
+                        }
                     }
                 }
             ]
@@ -165,9 +245,10 @@ ApplicationWindow
                 id: layout_left_menu_hidden
                 anchors.fill: container_left_menu_hidden
                 Layout.margins: 20
+
                 row:12
                 column: 3
-                color : "#204b0082"
+                color : qsTr("#204b0082")
 
                 Item
                 {
@@ -248,6 +329,42 @@ ApplicationWindow
             }
 
         }
+
+        Item
+        {
+            id: container_right_menu
+
+            Layout.column: 4
+            Layout.columnSpan: 15
+            Layout.row: 0
+            Layout.rowSpan: 2
+
+            GridLayoutUtil
+            {
+                id: layout_right_menu
+                Layout.margins: 20
+                anchors.fill: parent
+                row:12
+                column: 3
+                color: qsTr("#4B72BF")
+
+
+                Item
+                {
+                    Layout.column: 1
+                    Layout.row: 0
+
+                    Button
+                    {
+                        objectName: qsTr("btnSweepH")
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        text: qsTr("Sweep Hidden")
+                    }
+                }
+            }
+        }
+
     }
 }
 

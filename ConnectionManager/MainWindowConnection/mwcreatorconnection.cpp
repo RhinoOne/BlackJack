@@ -58,14 +58,9 @@ void MWCreatorConnection::ActivationSidePanel()
     QMap<QString, QQuickItem*> sidePanels = GetUIObject(reg);
     QQuickItem* item = sidePanels.find("leftSidePanel").value();
 
-    if(item->state() != "Hidden")
-    {
-        item->setState("Hidden");
-    }
-    else
-    {
-        item->setState("Show");
-    }
+    item->state() != "Hidden" ? item->setState("Hidden") :item->setState("Show");
+
+    qDebug() << item->x();
 }
 
 MWCreatorConnection::~MWCreatorConnection()
