@@ -1,28 +1,14 @@
 #include "windowsmanager.h"
 #include <QGuiApplication>
+#include "qqmlcontext.h"
 
-QSharedPointer<WindowsManager> WindowsManager::m_instance = nullptr;
+WindowsManager* WindowsManager::m_instance = nullptr;
 QSharedPointer<QQuickView> WindowsManager::m_window = nullptr;
 
-
-
-WindowsManager::WindowsManager()
+WindowsManager::WindowsManager(QObject *parent)
+    : QObject (parent)
 {
 
-}
-
-WindowsManager *WindowsManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-{
-    if(m_instance == nullptr)
-    {
-        m_instance = QSharedPointer<WindowsManager>(new WindowsManager);
-        jsEngine->setObjectOwnership(m_instance.data(), QJSEngine::CppOwnership);
-
-        m_instance->CreateViewInstance();
-        m_instance->CreateUrlList();
-    }
-
-    return m_instance.data();
 }
 
 void WindowsManager::CreateViewInstance()
@@ -35,12 +21,30 @@ void WindowsManager::CreateViewInstance()
 
 void WindowsManager::CreateUrlList()
 {
-    m_urlViewers.insert(WindowsManager::MainWindow, QUrl(u"qrc:/BlackJack/MainWindow/main.qml"_qs));
+    m_urlViewers.insert(GlobalEnumData::MainWindow, QUrl(u"qrc:/BlackJack/MainWindow/main.qml"_qs));
 }
 
 SPView WindowsManager::GetViewInstance()
 {
     return (m_window != nullptr) ? m_window : nullptr;
+}
+
+WindowsManager* WindowsManager::GetWindowsManagerInstance()
+{
+    return m_instance != nullptr ? m_instance : nullptr;
+}
+
+void WindowsManager::CreateInstance()
+{
+    m_instance = new WindowsManager(&m_qml_eng_app);
+
+    if(m_instance != nullptr)
+    {
+        m_instance->CreateViewInstance();
+        m_instance->CreateUrlList();
+
+        GlobalEnumData::DeclareEnum();
+    }
 }
 
 void WindowsManager::ChangeDisplayView(QQuickView* view)
@@ -55,7 +59,7 @@ WindowsManager::~WindowsManager()
 
 //Integration methods with QML
 
-void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, WindowsManager::TypeWindow typeWindow)
+void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, GlobalEnumData::TypeWindow typeWindow)
 {
     m_window->setTitle(title);
     QRect rectDesktop = QGuiApplication::primaryScreen()->geometry();
@@ -63,9 +67,9 @@ void WindowsManager::setupPropertyWindow(QRect rect, const QString &title, Windo
     m_window->setGeometry(rect);
 }
 
-void WindowsManager::createCurrentWindowType(TypeWindow type)
+void WindowsManager::createCurrentWindowType(GlobalEnumData::TypeWindow type)
 {
-    if(type != WindowsManager::None)
+    if(type != GlobalEnumData::None)
     {
         const QUrl url = *m_urlViewers.find(type);
         QObject* objView = nullptr;
@@ -79,7 +83,10 @@ void WindowsManager::createCurrentWindowType(TypeWindow type)
                 }
         });
 
+        m_qml_eng_app.rootContext()->setContextProperty(QStringLiteral("WindowsManager"), WindowsManager::GetWindowsManagerInstance());
         m_qml_eng_app.load(url);
     }
 }
+
+
 

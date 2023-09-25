@@ -15,4 +15,29 @@ struct ConnectionModelData
     QVector<const char*> Slots;
 };
 
+class GlobalEnumData : public QObject
+{
+    Q_OBJECT
+
+public:
+    enum TypeWindow
+    {
+        None,
+        MainWindow,
+        SettingWindow,
+        TestWindow,
+    };
+
+    Q_ENUM(TypeWindow)
+
+public:
+    static void DeclareEnum();
+
+protected:
+    GlobalEnumData() = default;
+    ~GlobalEnumData() = default;
+
+private:
+};
+
 #endif // DATA_H

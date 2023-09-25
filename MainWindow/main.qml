@@ -2,8 +2,8 @@ import QtQuick 2.6
 import Layout 1.0
 import QtQuick.Layouts
 import QtQuick.Controls 2.3
-import WindowsManager 1.0
 import ConnectionManager 1.0
+import ETypeWindow 1.0
 
 ApplicationWindow
 {
@@ -16,8 +16,8 @@ ApplicationWindow
 
     Component.onCompleted:
     {
-        Qt.callLater(WindowsManager.setupPropertyWindow,Qt.rect(0,0,1280,720), qsTr("BlackJack"), WindowsManager.MainWindow)
-        Qt.callLater(connManager.makeConnection, WindowsManager.MainWindow)
+        Qt.callLater(WindowsManager.setupPropertyWindow, Qt.rect(0,0,1280,720), qsTr("BlackJack"), TypeWindow.MainWindow)
+        Qt.callLater(connManager.makeConnection, TypeWindow.MainWindow)
     }
 
     GridLayoutUtil
