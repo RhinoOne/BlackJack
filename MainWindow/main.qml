@@ -124,17 +124,27 @@ ApplicationWindow
         }
 
         // Hidden content for left menu container
+
         Item
         {
             objectName: qsTr("leftSidePanel")
             id: container_left_menu_hidden
 
             state: qsTr("Hidden")
-
             Layout.column: 0 //Sets the initial position of the panel for the motion effect
             Layout.columnSpan: 3
             Layout.row: 0
             Layout.rowSpan: 2
+
+            //Calculates the value by which the panel needs to be moved (property 'X')
+            //so that there are no gaps and the hidden part of the panel appears as one whole with the initially visible part of the panel
+            function getValueMovementPanel()
+            {
+                if(Layout.column === 1)
+                    return container_left_menu.x + container_left_menu.width
+                else
+                    return 0
+            }
 
             //Animation for side left panel
             states:
@@ -147,7 +157,8 @@ ApplicationWindow
                         target: container_left_menu_hidden
                         visible: false
                         opacity: 0
-                        x: 0
+                        x: getValueMovementPanel()
+                        Layout.column: 0
                     }
                 },
 
@@ -159,7 +170,8 @@ ApplicationWindow
                         target: container_left_menu_hidden
                         visible: true
                         opacity: 1
-                        x: 64
+                        x: getValueMovementPanel()
+                        Layout.column: 1
                     }
                 }
             ]
@@ -199,6 +211,14 @@ ApplicationWindow
                                 duration: 250
                                 easing.type: Easing.InQuad
                             }
+
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("Layout.column")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
                         }
                     }
                 },
@@ -224,6 +244,14 @@ ApplicationWindow
                             {
                                 target: container_left_menu_hidden
                                 properties: qsTr("opacity")
+                                duration: 250
+                                easing.type: Easing.InQuad
+                            }
+
+                            PropertyAnimation
+                            {
+                                target: container_left_menu_hidden
+                                properties: qsTr("Layout.column")
                                 duration: 250
                                 easing.type: Easing.InQuad
                             }
