@@ -5,6 +5,12 @@
 WindowsManager* WindowsManager::m_instance = nullptr;
 QSharedPointer<QQuickView> WindowsManager::m_window = nullptr;
 
+
+static void DeleteLater(QQuickView *obj)
+{
+    obj->deleteLater();
+}
+
 WindowsManager::WindowsManager(QObject *parent)
     : QObject (parent)
 {
@@ -36,7 +42,8 @@ WindowsManager* WindowsManager::GetWindowsManagerInstance()
 
 void WindowsManager::CreateInstance()
 {
-    m_instance = new WindowsManager(&m_qml_eng_app);
+
+    m_instance = new WindowsManager();
 
     if(m_instance != nullptr)
     {
@@ -49,7 +56,7 @@ void WindowsManager::CreateInstance()
 
 void WindowsManager::ChangeDisplayView(QQuickView* view)
 {
-    m_window = QSharedPointer<QQuickView>(view);
+    m_window = QSharedPointer<QQuickView>(view, DeleteLater);
 }
 
 WindowsManager::~WindowsManager()
@@ -79,7 +86,7 @@ void WindowsManager::createCurrentWindowType(GlobalEnumData::TypeWindow type)
                     QCoreApplication::exit(-1);
                 else
                 {
-                    m_window = SPView(static_cast<QQuickView*>(obj));
+                    m_window = SPView(static_cast<QQuickView*>(obj), DeleteLater);
                 }
         });
 

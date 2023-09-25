@@ -14,9 +14,8 @@ int main(int argc, char *argv[])
 {
    QGuiApplication app(argc, argv);
 
-   WindowsManager* kilo = new WindowsManager;
-   kilo->CreateInstance();
-   WindowsManager::GetWindowsManagerInstance()->createCurrentWindowType(GlobalEnumData::MainWindow);
+    WindowsManager::GetWindowsManagerInstance()->CreateInstance();
+    WindowsManager::GetWindowsManagerInstance()->createCurrentWindowType(GlobalEnumData::MainWindow);
 
     return app.exec();
 }

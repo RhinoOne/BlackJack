@@ -23,7 +23,7 @@ public:
 
     static SPView GetViewInstance();
     static WindowsManager* GetWindowsManagerInstance();
-    void CreateInstance();
+    static void CreateInstance();
 
 public:
     void ChangeDisplayView(QQuickView* view);
