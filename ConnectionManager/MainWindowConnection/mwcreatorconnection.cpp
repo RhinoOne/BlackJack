@@ -30,13 +30,8 @@ void MWCreatorConnection::InitializeButtonConnectionModel()
     QMap<QString, QQuickItem*> btnObjects = GetUIObject(reg);
 
     m_main_cmd.push_back(ConnectionModelData{*btnObjects.find("btnSweep"),
-                         QVector<const char*>{SIGNAL(clicked()), SIGNAL(toggled())},
-                         QVector<const char*>{SLOT(TestClick()), SLOT(TestToggled())}
-                         });
-
-    m_main_cmd.push_back(ConnectionModelData{*btnObjects.find("btnIcon"),
-                         QVector<const char*>{SIGNAL(released())},
-                         QVector<const char*>{SLOT(TestToggled())}
+                         QVector<const char*>{SIGNAL(clicked())},
+                         QVector<const char*>{SLOT(ActivationSidePanel())}
                          });
 }
 
@@ -55,6 +50,17 @@ void MWCreatorConnection::CreateConnection()
             connect(currentItem, currentSignals.at(keyCreateConn), this, currentSlots.at(keyCreateConn));
         }
     }
+}
+
+void MWCreatorConnection::ActivationSidePanel()
+{
+    const QRegularExpression reg ("leftSidePanel");
+    QMap<QString, QQuickItem*> sidePanels = GetUIObject(reg);
+    QQuickItem* item = sidePanels.find("leftSidePanel").value();
+
+    item->state() != "Hidden" ? item->setState("Hidden") :item->setState("Show");
+
+    qDebug() << item->x();
 }
 
 MWCreatorConnection::~MWCreatorConnection()

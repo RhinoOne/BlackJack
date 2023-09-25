@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QSharedPointer>
 #include <QtQml>
+
+#include "../GlobalData/data.h"
 #include "../WindowsManager/windowsmanager.h"
 
 struct ConnectionModelData;
@@ -20,7 +22,7 @@ public:
     ConnectionManager();
     ~ConnectionManager();
 
-    Q_INVOKABLE void makeConnection(WindowsManager::TypeWindow type);
+    Q_INVOKABLE void makeConnection(GlobalEnumData::TypeWindow type);
 
 private:
     QSharedPointer<IConnection> m_connection;

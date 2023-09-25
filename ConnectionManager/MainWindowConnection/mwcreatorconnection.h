@@ -17,8 +17,7 @@ class MWCreatorConnection : public QObject,
     void CreateConnection() override;
 
 public slots:
-    BTN_SLOT_TAG void TestClick(){qDebug() << "TestClick";}
-    BTN_SLOT_TAG void TestToggled(){qDebug() << "TestTooggled";}
+    BTN_SLOT_TAG void ActivationSidePanel();
 
 public:
     MWCreatorConnection();

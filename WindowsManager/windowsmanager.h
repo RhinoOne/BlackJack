@@ -7,40 +7,29 @@
 #include <QSharedPointer>
 #include <QGuiApplication>
 
+#include "../GlobalData/data.h"
+
 typedef QSharedPointer<QQuickView> SPView;
 
 class WindowsManager : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
-    QML_SINGLETON
 
 public:
+    //Methods for QML integration
+    Q_INVOKABLE void setupPropertyWindow(QRect rect, const QString& title, GlobalEnumData::TypeWindow typeWindow);
+    Q_INVOKABLE void createCurrentWindowType(GlobalEnumData::TypeWindow type);
 
-    enum TypeWindow
-    {
-        None,
-        MainWindow,
-        SettingWindow,
-        TestWindow,
-    };
-
-    Q_ENUM(TypeWindow)
-
-public:
-    Q_INVOKABLE void setupPropertyWindow(QRect rect, const QString& title, WindowsManager::TypeWindow typeWindow);
-    Q_INVOKABLE void createCurrentWindowType(WindowsManager::TypeWindow type);
-
-    static WindowsManager *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
     static SPView GetViewInstance();
+    static WindowsManager* GetWindowsManagerInstance();
+    static void CreateInstance();
 
 public:
     void ChangeDisplayView(QQuickView* view);
 
+    explicit WindowsManager(QObject *parent = nullptr);
     ~WindowsManager();
-
-protected:
-    WindowsManager();
 
 private:
     void CreateViewInstance();
@@ -48,11 +37,11 @@ private:
 
 private:
     QString m_url;
-    QMap<WindowsManager::TypeWindow, QUrl> m_urlViewers;
+    QMap<GlobalEnumData::TypeWindow, QUrl> m_urlViewers;
     QQmlApplicationEngine m_qml_eng_app;
 
     static SPView m_window;
-    static QSharedPointer<WindowsManager> m_instance;
+    static WindowsManager* m_instance;
 };
 
 #endif // WINDOWSMANAGERS_H

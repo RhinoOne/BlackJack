@@ -6,10 +6,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(HEADER "MainWindow/mainwindow.h"
-           "GlobalData/data.h")
+           "GlobalData/data.h"
+           "WindowsManager/windowsmanager.h")
 
 set(CPP    "MainWindow/mainwindow.cpp"
-           "GlobalData/data.cpp")
+           "GlobalData/data.cpp"
+           "WindowsManager/windowsmanager.cpp")
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
@@ -30,12 +32,10 @@ qt_add_qml_module(appBlackJack
 
 include_directories("ConnectionManager/Manager")
 include_directories("ConnectionManager/MainWindowConnection")
+include_directories("WindowsManager")
 
 add_subdirectory(Layout)
 add_subdirectory(ConnectionManager)
-add_subdirectory(WindowsManager)
-
-
 
 set_target_properties(appBlackJack PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -54,8 +54,6 @@ target_link_libraries(appBlackJack
     PRIVATE specific_layout_moduleplugin)
 target_link_libraries(appBlackJack
     PRIVATE connection_managerplugin)
-target_link_libraries(appBlackJack
-    PRIVATE windows_managerplugin)
 
 install(TARGETS appBlackJack
     BUNDLE DESTINATION .
